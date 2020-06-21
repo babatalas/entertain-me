@@ -33,7 +33,7 @@ const typeDefs = gql`
   }
 
   extend type Mutation {
-    addMovie(movie: InputMovie): Movie
+    createMovie(movie: InputMovie): Movie
     updateMovie(movie: UpdateMovie): Movie
     deleteMovie(_id: ID!): DeleteResponse
   }
@@ -73,7 +73,7 @@ const resolvers = {
   },
 
   Mutation: {
-    addMovie: async (_, args) => {
+    createMovie: async (_, args) => {
       try {
         const { title, overview, poster_path, popularity, tags } = args.movie;
         const newMovie = {

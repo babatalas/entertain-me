@@ -1,51 +1,22 @@
 import React from 'react';
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import './App.css';
-
-const MOVIE_LIST = gql`
-     {
-       movies {
-         _id
-         title
-         overview
-         poster_path
-         popularity
-         tags
-       }
-     }
-   `;
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Home, Movie, MovieDetail, MovieEdit, MovieCreate, TvSeries } from "./pages";
+import TheNavbar from "./components/TheNavbar";
 
 function App() {
-  const { loading, error, data } = useQuery(MOVIE_LIST)
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <main style={{ display: "flex", justifyContent: "center", alignItems: "center", flex: 1, margin: "20px"}}>
-        {loading && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
-
-        {!loading && !error && (
-          data.movies.map(movie => {
-          return <p key={movie._id}>{JSON.stringify(movie)}</p>
-          })
-        )}
-      {console.log(data)}
-      </main>
-    </div>
+    <Router>
+      <TheNavbar/>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/movies" exact component={Movie} />
+        <Route path="/movies/create" component={MovieCreate} />
+        <Route path="/movies/edit/:movieId" component={MovieEdit} />
+        <Route path="/movies/:movieId" component={MovieDetail} />
+        <Route path="/tv-series" exact component={TvSeries} />
+      </Switch>
+    </Router>
   );
 }
 
