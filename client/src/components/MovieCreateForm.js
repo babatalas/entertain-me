@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Col, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_MOVIE } from "../graphql/queries";
+import { CREATE_MOVIE, GET_ALL_MOVIES } from "../graphql/queries";
 
 function MovieEditForm(props) {
   const [title, setTitle] = useState("");
@@ -12,7 +12,17 @@ function MovieEditForm(props) {
   const [tags, setTags] = useState([]);
 
   const history = useHistory();
-  const [createMovie] = useMutation(CREATE_MOVIE);
+  const [createMovie] = useMutation(CREATE_MOVIE, {
+    update(cache, { data: { createMovie } }) {
+      const { movies } = cache.readQuery({ query: GET_ALL_MOVIES });
+      cache.writeQuery({
+        query: GET_ALL_MOVIES,
+        data: {
+          movies: [...movies, createMovie],
+        },
+      });
+    },
+  });
 
   const movieTagsHandle = (tags) => {
     const newTags = tags.split(",").map((tag) => tag.trim());

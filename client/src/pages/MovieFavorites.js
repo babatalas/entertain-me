@@ -1,12 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { Container, Row, Button } from "react-bootstrap";
-import { GET_ALL_MOVIES } from "../graphql/queries";
+import { Container, Button, Row } from "react-bootstrap";
+import { GET_FAVORITE_MOVIES } from "../graphql/queries";
 import MovieList from "../components/MovieList";
 
-function Movie() {
-  const { loading, error, data } = useQuery(GET_ALL_MOVIES);
+function MovieFavorites() {
+  const { loading, error, data } = useQuery(GET_FAVORITE_MOVIES);
   const history = useHistory();
 
   if (loading) return <p>Loading...</p>;
@@ -22,9 +22,9 @@ function Movie() {
           View Favorite Movies
         </Button>
       </Row>
-      <MovieList movies={data.movies} />
+      <MovieList movies={data.favoriteMovies} />
     </Container>
   );
 }
 
-export default Movie;
+export default MovieFavorites;

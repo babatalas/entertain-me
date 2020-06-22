@@ -34,13 +34,15 @@ export const CREATE_MOVIE = gql`
     $popularity: Int!
     $tags: [String]!
   ) {
-    createMovie(movie: {
-      title: $title
-      overview: $overview
-      poster_path: $poster_path
-      popularity: $popularity
-      tags: $tags
-    }) {
+    createMovie(
+      movie: {
+        title: $title
+        overview: $overview
+        poster_path: $poster_path
+        popularity: $popularity
+        tags: $tags
+      }
+    ) {
       _id
       title
       overview
@@ -81,6 +83,52 @@ export const UPDATE_MOVIE = gql`
         }
       }
     ) {
+      _id
+      title
+      overview
+      poster_path
+      popularity
+      tags
+    }
+  }
+`;
+
+export const ADD_MOVIE_TO_FAVORITE_MOVIES = gql`
+  mutation addMovieToFavoriteMovies(
+    $id: ID!
+    $title: String!
+    $overview: String!
+    $poster_path: String!
+    $popularity: Int!
+    $tags: [String]!
+  ) {
+    addMovieToFavoriteMovies(
+      _id: $id
+      title: $title
+      overview: $overview
+      poster_path: $poster_path
+      popularity: $popularity
+      tags: $tags
+    ) @client {
+      _id
+      title
+      overview
+      poster_path
+      popularity
+      tags
+    }
+  }
+`;
+
+export const REMOVE_MOVIE_FROM_FAVORITE_MOVIES = gql`
+  mutation removeMovieFromFavoriteMovies($id: ID!) {
+    removeMovieFromFavoriteMovies(_id: $id) @client
+  }
+`;
+
+export const GET_FAVORITE_MOVIES = gql`
+  query {
+    favoriteMovies @client {
       _id
       title
       overview
