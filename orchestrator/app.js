@@ -1,4 +1,4 @@
-if (!process.env.NODE_END) require('dotenv').config();
+if (process.env.NODE_END !== "production") require("dotenv").config();
 const { ApolloServer, gql, makeExecutableSchema } = require("apollo-server");
 
 const movieSchema = require("./schemas/movieSchema");
@@ -16,11 +16,11 @@ const typeDefs = gql`
 const schema = makeExecutableSchema({
   typeDefs: [typeDefs, movieSchema.typeDefs, tvSeriesSchema.typeDefs],
   resolvers: [movieSchema.resolvers, tvSeriesSchema.resolvers],
-  cors: false
+  cors: false,
 });
 
 const server = new ApolloServer({ schema });
 
-server.listen({port: process.env.PORT || 4000}).then(({ url }) => {
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
   console.log(`🚀🚀 Server ready at ${url}`);
 });
