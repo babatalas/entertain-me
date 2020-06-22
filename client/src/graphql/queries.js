@@ -56,6 +56,7 @@ export const CREATE_MOVIE = gql`
 export const DELETE_MOVIE = gql`
   mutation deleteMovie($id: ID!) {
     deleteMovie(_id: $id) {
+      _id
       n
       ok
     }

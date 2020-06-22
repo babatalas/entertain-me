@@ -111,6 +111,7 @@ const resolvers = {
         if (response.n) {
           redis.del("movie:" + _id);
           redis.del("movies");
+          response._id = _id;
         }
         return response;
       } catch (error) {

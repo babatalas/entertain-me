@@ -2,13 +2,23 @@ import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
-import { DELETE_MOVIE, ADD_MOVIE_TO_FAVORITE_MOVIES } from "../graphql/queries";
+import { DELETE_MOVIE, ADD_MOVIE_TO_FAVORITE_MOVIES, GET_ALL_MOVIES } from "../graphql/queries";
 
 function MovieListItem(props) {
   const { movie, isInFavoriteMovies } = props;
 
   const history = useHistory();
-  const [deleteMovie] = useMutation(DELETE_MOVIE);
+  const [deleteMovie] = useMutation(DELETE_MOVIE, {
+    update(cache, { data: { deleteMovie }}) {
+      const { movies } = cache.readQuery({ query: GET_ALL_MOVIES })
+      cache.writeQuery({
+        query: GET_ALL_MOVIES,
+        data: {
+          movies: movies.filter((movie) => movie._id !== deleteMovie._id),
+        },
+      });
+    }
+  });
   const [addMovieToFavoriteMovies] = useMutation(ADD_MOVIE_TO_FAVORITE_MOVIES);
 
   const seeMovieDetailHandle = (e, id) => {

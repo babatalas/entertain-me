@@ -8,6 +8,7 @@ const typeDefs = gql`
   type DeleteResponse {
     n: Int
     ok: Int
+    _id: ID
   }
   type Query
   type Mutation
