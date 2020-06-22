@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 
-const localMongoURL = "mongodb://localhost:27017";
-const databaseName = "entertainMe";
+const localMongoURL = process.env.MONGODB_URI;
+const databaseName = process.env.MONGODB_DBNAME;
 
 var db;
 

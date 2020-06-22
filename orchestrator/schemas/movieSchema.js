@@ -1,8 +1,7 @@
 const { gql } = require("apollo-server");
-const Redis = require("ioredis");
 const axios = require("axios");
-
-const redis = new Redis();
+const redis = require("../redis");
+const moviesAPI = process.env.MOVIES_SERVICE_API + "/movies";
 
 const typeDefs = gql`
   type Movie {
@@ -46,9 +45,7 @@ const resolvers = {
         const moviesInCache = await redis.get("movies");
         if (moviesInCache) return JSON.parse(moviesInCache);
 
-        const { data: movies } = await axios.get(
-          "http://localhost:3001/movies"
-        );
+        const { data: movies } = await axios.get(moviesAPI);
         redis.set("movies", JSON.stringify(movies));
         return movies;
       } catch (error) {
@@ -61,9 +58,7 @@ const resolvers = {
         const movieByIdInCache = await redis.get("movie:" + _id);
         if (movieByIdInCache) return JSON.parse(movieByIdInCache);
 
-        const { data: movie } = await axios.get(
-          "http://localhost:3001/movies/" + _id
-        );
+        const { data: movie } = await axios.get(`${moviesAPI}/${_id}`);
         redis.set("movie:" + _id, JSON.stringify(movie));
         return movie;
       } catch (error) {
@@ -83,10 +78,7 @@ const resolvers = {
           popularity,
           tags,
         };
-        const { data: movie } = await axios.post(
-          "http://localhost:3001/movies",
-          newMovie
-        );
+        const { data: movie } = await axios.post(moviesAPI, newMovie);
         redis.del("movies");
         redis.set("movie:" + movie._id, JSON.stringify(movie));
         return movie;
@@ -100,7 +92,7 @@ const resolvers = {
         const { _id, data } = args.movie;
         const {
           data: { value: updatedMovie },
-        } = await axios.put("http://localhost:3001/movies/" + _id, data);
+        } = await axios.put(`${moviesAPI}/${_id}`, data);
         if (updatedMovie) {
           redis.del("movies");
           redis.set("movie:" + _id, JSON.stringify(updatedMovie));
@@ -114,9 +106,7 @@ const resolvers = {
     deleteMovie: async (_, args) => {
       try {
         const { _id } = args;
-        const { data: response } = await axios.delete(
-          "http://localhost:3001/movies/" + _id
-        );
+        const { data: response } = await axios.delete(`${moviesAPI}/${_id}`);
 
         if (response.n) {
           redis.del("movie:" + _id);

@@ -1,8 +1,7 @@
 const { gql } = require("apollo-server");
-const Redis = require("ioredis");
 const axios = require("axios");
-
-const redis = new Redis();
+const redis = require("../redis");
+const tvSeriesAPI = process.env.TV_SERIES_SERVICE_API + "/tvSeries";
 
 const typeDefs = gql`
   type TvSeries {
@@ -46,9 +45,7 @@ const resolvers = {
         const tvSeriesInCache = await redis.get("tvSeries");
         if (tvSeriesInCache) return JSON.parse(tvSeriesInCache);
 
-        const { data: tvSeries } = await axios.get(
-          "http://localhost:3002/tvSeries"
-        );
+        const { data: tvSeries } = await axios.get(tvSeriesAPI);
         redis.set("tvSeries", JSON.stringify(tvSeries));
         return tvSeries;
       } catch (error) {
@@ -61,9 +58,7 @@ const resolvers = {
         const tvSeriesByIdInCache = await redis.get("tvSeries:" + _id);
         if (tvSeriesByIdInCache) return JSON.parse(tvSeriesByIdInCache);
 
-        const { data: tvSeries } = await axios.get(
-          "http://localhost:3002/tvSeries/" + _id
-        );
+        const { data: tvSeries } = await axios.get(`${tvSeriesAPI}/${_id}`);
         redis.set("tvSeries:" + _id, JSON.stringify(tvSeries));
         return tvSeries;
       } catch (error) {
@@ -76,10 +71,7 @@ const resolvers = {
     createTvSeries: async (_, args) => {
       try {
         const { tvSeries: newTvSeries } = args;
-        const { data: tvSeries } = await axios.post(
-          "http://localhost:3002/tvSeries",
-          newTvSeries
-        );
+        const { data: tvSeries } = await axios.post(tvSeriesAPI, newTvSeries);
         redis.del("tvSeries");
         redis.set("tvSeries:" + movie._id, JSON.stringify(tvSeries));
         return tvSeries;
@@ -93,7 +85,7 @@ const resolvers = {
         const { _id, data } = args.tvSeries;
         const {
           data: { value: updatedTvSeries },
-        } = await axios.put("http://localhost:3002/tvSeries/" + _id, data);
+        } = await axios.put(`${tvSeriesAPI}/${_id}`, data);
         if (updatedTvSeries) {
           redis.del("tvSeries");
           redis.set("tvSeries:" + _id, JSON.stringify(updatedTvSeries));
@@ -107,9 +99,7 @@ const resolvers = {
     deleteTvSeries: async (_, args) => {
       try {
         const { _id } = args;
-        const { data: response } = await axios.delete(
-          "http://localhost:3002/tvSeries/" + _id
-        );
+        const { data: response } = await axios.delete(`${tvSeriesAPI}/${_id}`);
         if (response.n) {
           redis.del("tvSeries:" + _id);
           redis.del("tvSeries");
