@@ -1,35 +1,33 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { CardColumns } from "react-bootstrap";
-import { GET_FAVORITE_MOVIES } from "../graphql/queries";
-import MovieFavoriteListItem from "./MovieFavoriteListItem";
-import MovieListItem from "./MovieListItem";
+import { GET_FAVORITE_TV_SERIES } from "../graphql/queries";
+import TvSeriesFavoriteListItem from "./TvSeriesFavoriteListItem";
+import TvSeriesListItem from "./TvSeriesListItem";
 
-function MovieList(props) {
-  const { movies } = props;
+function TvSeriesList(props) {
+  const { tvSeries } = props;
   const {
-    data: { favoriteMovies },
-  } = useQuery(GET_FAVORITE_MOVIES);
-
-  console.log(favoriteMovies);
+    data: { favoriteTvSeries },
+  } = useQuery(GET_FAVORITE_TV_SERIES);
 
   return (
     <CardColumns className="mt-5">
       {
-        movies.map((movie) => (movie.__typename === "FavoriteMovie"
-        ? (<MovieFavoriteListItem
-            key={movie._id}
-            movie={movie}
-            isInFavoriteMovies={favoriteMovies.some(el => el._id === movie._id)}
+        tvSeries.map((series) => (series.__typename === "FavoriteTvSeries"
+        ? (<TvSeriesFavoriteListItem
+            key={series._id}
+            series={series}
+            isInFavoriteTvSeries={favoriteTvSeries.some(el => el._id === series._id)}
           />)
-        : (<MovieListItem
-            key={movie._id}
-            movie={movie}
-            isInFavoriteMovies={favoriteMovies.some(el => el._id === movie._id)}
+        : (<TvSeriesListItem
+            key={series._id}
+            series={series}
+            isInFavoriteTvSeries={favoriteTvSeries.some(el => el._id === series._id)}
           />)))
       }
     </CardColumns>
   );
 }
 
-export default MovieList;
+export default TvSeriesList;

@@ -2,37 +2,28 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Col, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_TV_SERIES, GET_ALL_TV_SERIES } from "../graphql/queries";
+import { UPDATE_TV_SERIES } from "../graphql/queries";
 
-function TvSeriesCreateForm(props) {
-  const [title, setTitle] = useState("");
-  const [overview, setOverview] = useState("");
-  const [poster_path, setPoster_path] = useState("");
-  const [popularity, setPopularity] = useState(undefined);
-  const [tags, setTags] = useState([]);
+function TvSeriesEditForm(props) {
+  const { tvSeries } = props;
+  const [title, setTitle] = useState(tvSeries.title);
+  const [overview, setOverview] = useState(tvSeries.overview);
+  const [poster_path, setPoster_path] = useState(tvSeries.poster_path);
+  const [popularity, setPopularity] = useState(tvSeries.popularity);
+  const [tags, setTags] = useState(tvSeries.tags);
   const history = useHistory();
-
-  const [createTvSeries] = useMutation(CREATE_TV_SERIES, {
-    update(cache, { data: { createTvSeries } }) {
-      const { tvSeries } = cache.readQuery({ query: GET_ALL_TV_SERIES });
-      cache.writeQuery({
-        query: GET_ALL_TV_SERIES,
-        data: {
-          tvSeries: [...tvSeries, createTvSeries],
-        },
-      });
-    },
-  });
+  const [updateTvSeries] = useMutation(UPDATE_TV_SERIES);
 
   const tagsHandle = (tags) => {
     const newTags = tags.split(",").map((tag) => tag.trim());
     setTags(newTags);
   };
 
-  const createSubmitHandle = async (e) => {
+  const editSubmitHandle = async (e) => {
     e.preventDefault();
-    await createTvSeries({
+    await updateTvSeries({
       variables: {
+        id: tvSeries._id,
         title,
         overview,
         poster_path,
@@ -40,11 +31,11 @@ function TvSeriesCreateForm(props) {
         tags,
       },
     });
-    history.push(`/tv-series`);
+    history.push(`/tv-series/${tvSeries._id}`);
   };
 
   return (
-    <Form onSubmit={(e) => createSubmitHandle(e)}>
+    <Form onSubmit={(e) => editSubmitHandle(e)}>
       <Form.Group>
         <Form.Row>
           <Form.Label column lg={2}>
@@ -125,4 +116,4 @@ function TvSeriesCreateForm(props) {
   );
 }
 
-export default TvSeriesCreateForm;
+export default TvSeriesEditForm;

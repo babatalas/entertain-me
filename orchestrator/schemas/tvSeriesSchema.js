@@ -73,7 +73,7 @@ const resolvers = {
         const { tvSeries: newTvSeries } = args;
         const { data: tvSeries } = await axios.post(tvSeriesAPI, newTvSeries);
         redis.del("tvSeries");
-        redis.set("tvSeries:" + movie._id, JSON.stringify(tvSeries));
+        redis.set("tvSeries:" + tvSeries._id, JSON.stringify(tvSeries));
         return tvSeries;
       } catch (error) {
         return error;

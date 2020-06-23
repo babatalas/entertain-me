@@ -8,3 +8,5 @@ export { default as MovieFavorites } from "./MovieFavorites";
 
 export { default as TvSeries } from "./TvSeries";
 export { default as TvSeriesCreate } from "./TvSeriesCreate";
+export { default as TvSeriesEdit } from "./TvSeriesEdit";
+export { default as TvSeriesDetail } from "./TvSeriesDetail";

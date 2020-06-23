@@ -9,6 +9,8 @@ import {
   MovieFavorites,
   TvSeries,
   TvSeriesCreate,
+  TvSeriesDetail,
+  TvSeriesEdit,
 } from "./pages";
 import TheNavbar from "./components/TheNavbar";
 
@@ -25,6 +27,8 @@ function App() {
         <Route path="/movies/:movieId" component={MovieDetail} />
         <Route path="/tv-series" exact component={TvSeries} />
         <Route path="/tv-series/create" component={TvSeriesCreate} />
+        <Route path="/tv-series/edit/:tvSeriesId" component={TvSeriesEdit} />
+        <Route path="/tv-series/:tvSeriesId" component={TvSeriesDetail} />
       </Switch>
     </Router>
   );

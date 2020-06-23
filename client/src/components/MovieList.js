@@ -11,8 +11,6 @@ function MovieList(props) {
     data: { favoriteMovies },
   } = useQuery(GET_FAVORITE_MOVIES);
 
-  console.log(favoriteMovies);
-
   return (
     <CardColumns className="mt-5">
       {

@@ -1,5 +1,5 @@
 import ApolloClient from "apollo-boost";
-import { GET_FAVORITE_MOVIES } from "./queries";
+import { GET_FAVORITE_MOVIES, GET_FAVORITE_TV_SERIES } from "./queries";
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_ORCHESTRATOR_URL,
@@ -33,6 +33,36 @@ const client = new ApolloClient({
           client.cache.writeData({
             data: {
               favoriteMovies: newFavoriteMovies,
+            },
+          });
+        },
+        addTvSeriesToFavorite: (_, variables, client) => {
+          const { favoriteTvSeries } = client.cache.readQuery({
+            query: GET_FAVORITE_TV_SERIES,
+          });
+          const series = {
+            ...variables,
+            tags: [...variables.tags],
+            __typename: "FavoriteTvSeries",
+          };
+          const newFavoriteTvSeries = [...favoriteTvSeries, series];
+          client.cache.writeData({
+            data: {
+              favoriteTvSeries: newFavoriteTvSeries,
+            },
+          });
+        },
+        removeTvSeriesFromFavorite: (_, variables, client) => {
+          console.log("masuk remove", variables)
+          const { favoriteTvSeries } = client.cache.readQuery({
+            query: GET_FAVORITE_MOVIES,
+          });
+          const newFavoriteTvSeries = favoriteTvSeries.filter(
+            (series) => series._id !== variables._id
+          );
+          client.cache.writeData({
+            data: {
+              favoriteTvSeries: newFavoriteTvSeries,
             },
           });
         },

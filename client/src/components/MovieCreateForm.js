@@ -8,7 +8,7 @@ function MovieEditForm(props) {
   const [title, setTitle] = useState("");
   const [overview, setOverview] = useState("");
   const [poster_path, setPoster_path] = useState("");
-  const [popularity, setPopularity] = useState(null);
+  const [popularity, setPopularity] = useState(undefined);
   const [tags, setTags] = useState([]);
 
   const history = useHistory();
