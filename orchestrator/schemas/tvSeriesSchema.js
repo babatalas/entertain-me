@@ -1,7 +1,7 @@
 const { gql } = require("apollo-server");
 const axios = require("axios");
 const redis = require("../redis");
-const tvSeriesAPI = process.env.TV_SERIES_SERVICE_API + "/tvSeries";
+const tvSeriesAPI = process.env.TV_SERIES_SERVICE_API + "/tv-series";
 
 const typeDefs = gql`
   type TvSeries {
