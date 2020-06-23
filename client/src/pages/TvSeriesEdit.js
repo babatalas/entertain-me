@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { GET_TV_SERIES_DETAIL } from "../graphql/queries";
 import { Container, Card } from "react-bootstrap";
 import TvSeriesEditForm from "../components/TvSeriesEditForm";
+import TheLoading from "../components/TheLoading";
 
 function TvSeriesEdit() {
   const { tvSeriesId } = useParams();
@@ -13,7 +14,7 @@ function TvSeriesEdit() {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <TheLoading />;
   if (error) return <p>Error...</p>;
   
   return (

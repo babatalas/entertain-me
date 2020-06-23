@@ -55,7 +55,7 @@ const client = new ApolloClient({
         removeTvSeriesFromFavorite: (_, variables, client) => {
           console.log("masuk remove", variables)
           const { favoriteTvSeries } = client.cache.readQuery({
-            query: GET_FAVORITE_MOVIES,
+            query: GET_FAVORITE_TV_SERIES,
           });
           const newFavoriteTvSeries = favoriteTvSeries.filter(
             (series) => series._id !== variables._id

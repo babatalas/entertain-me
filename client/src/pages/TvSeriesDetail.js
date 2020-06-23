@@ -8,6 +8,7 @@ import {
 } from "../graphql/queries";
 import { Container, Card, Figure, Badge, Button } from "react-bootstrap";
 import TvSeriesSubMenu from "../components/TvSeriesSubMenu";
+import TheLoading from "../components/TheLoading";
 
 function TvSeriesDetail() {
   const { tvSeriesId } = useParams();
@@ -41,7 +42,7 @@ function TvSeriesDetail() {
     });
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <TheLoading />;
   if (error) return <p>Error...</p>;
 
   return (

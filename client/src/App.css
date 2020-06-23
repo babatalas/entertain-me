@@ -1,0 +1,184 @@
+.box_1{
+  width:40px;
+  height:40px;
+  margin:30px auto 0 auto;
+  border:4px solid #20c997;
+  box-sizing:border-box;
+   animation: rotation 0.5s infinite ease-in-out;
+  -moz-animation: rotation 0.5s infinite ease-in-out;
+  -webkit-animation: rotation 0.5s infinite ease-in-out;
+  -o-animation: rotation 0.5s infinite ease-in-out;
+  -ms-animation: rotation 0.5s infinite ease-in-out;
+}
+@keyframes rotation{
+  0%{
+    transform: rotate(0deg);
+    background-color:#007bff;
+  }
+  50%{
+    margin-top:20px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    transform: rotate(90deg);
+    background-color:#007bff;
+  }
+  
+}
+@-moz-keyframes rotation{
+  0%{
+    -moz-transform: rotate(0deg);
+    background-color:#007bff;
+  }
+  50%{
+    margin-top:20px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    -moz-transform: rotate(90deg);
+    background-color:#007bff;
+  }
+  
+}
+@-webkit-keyframes rotation{
+  0%{
+    -webkit-transform: rotate(0deg);
+    background-color:#007bff;
+  }
+  50%{
+    margin-top:20px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    -webkit-transform: rotate(90deg);
+    background-color:#007bff;
+  }
+  
+}
+@-o-keyframes rotation{
+  0%{
+    -o-transform: rotate(0deg);
+    background-color:#007bff;
+  }
+  50%{
+    margin-top:20px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    -o-transform: rotate(90deg);
+    background-color:#007bff;
+  }
+  
+}
+@-ms-keyframes rotation{
+  0%{
+    -ms-transform: rotate(0deg);
+    background-color:#007bff;
+  }
+  50%{
+    margin-top:20px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    -ms-transform: rotate(90deg);
+    background-color:#007bff;
+  }
+  
+}
+.box_2{
+  width:40px;
+  height:40px;
+  margin:0 auto 0 auto;
+   border:4px solid #61a030;
+   box-sizing:border-box;
+  animation: gear1 0.5s infinite ease-in-out;
+  -moz-animation: gear1 0.5s infinite ease-in-out;
+  -webkit-animation: gear1 0.5s infinite ease-in-out;
+  -o-animation: gear1 0.5s infinite ease-in-out;
+  -ms-animation: gear1 0.5s infinite ease-in-out;
+}
+@keyframes gear1{
+  0%{
+    transform: rotate(0deg);
+    background-color:#28a745;
+     }
+  50%{
+    margin-top:15px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    transform: rotate(-90deg); 
+    background-color:#28a745;
+  }
+  
+}
+@-moz-keyframes gear1{
+  0%{
+    -moz-transform: rotate(0deg);
+    background-color:#28a745;
+     }
+  50%{
+    margin-top:15px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    -moz-transform: rotate(-90deg); 
+    background-color:#28a745;
+  }
+  
+}
+@-webkit-keyframes gear1{
+  0%{
+    -webkit-transform: rotate(0deg);
+    background-color:#28a745;
+     }
+  50%{
+    margin-top:15px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    -webkit-transform: rotate(-90deg); 
+    background-color:#28a745;
+  }
+  
+}
+@-o-keyframes gear1{
+  0%{
+    -o-transform: rotate(0deg);
+    background-color:#28a745;
+     }
+  50%{
+    margin-top:15px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    -o-transform: rotate(-90deg); 
+    background-color:#28a745;
+  }
+  
+}
+@-ms-keyframes gear1{
+  0%{
+    -ms-transform: rotate(0deg);
+    background-color:#28a745;
+     }
+  50%{
+    margin-top:15px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    -ms-transform: rotate(-90deg); 
+    background-color:#28a745;
+  }
+  
+}

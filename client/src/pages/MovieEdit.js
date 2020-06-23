@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { GET_MOVIE_DETAIL } from "../graphql/queries";
 import { Container, Card } from "react-bootstrap";
 import MovieEditForm from "../components/MovieEditForm";
+import TheLoading from "../components/TheLoading";
 
 function MovieEdit() {
   const { movieId } = useParams();
@@ -13,8 +14,9 @@ function MovieEdit() {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <TheLoading />;
   if (error) return <p>Error...</p>;
+  
   return (
     <Container>
       <Card className="mt-5">

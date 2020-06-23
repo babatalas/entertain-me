@@ -2,39 +2,39 @@ import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
-import { REMOVE_MOVIE_FROM_FAVORITE_MOVIES } from "../graphql/queries";
+import { REMOVE_TV_SERIES_FROM_FAVORITE } from "../graphql/queries";
 
 function TvSeriesFavoriteListItem(props) {
-  const { movie } = props;
+  const { series } = props;
   const history = useHistory();
 
-  const [removeMovieFromFavoriteMovies] = useMutation(
-    REMOVE_MOVIE_FROM_FAVORITE_MOVIES,
+  const [removeTvSeriesFromFavorite] = useMutation(
+    REMOVE_TV_SERIES_FROM_FAVORITE,
     {
       variables: {
-        id: movie._id,
+        id: series._id,
       },
     }
   );
 
-  const seeMovieDetailHandle = (e, id) => {
+  const seeTvSeriesDetailHandle = (e, id) => {
     e.preventDefault();
-    history.push(`/movies/${id}`);
+    history.push(`/tv-series/${id}`);
   };
 
   return (
     <Card>
-      <Card.Img variant="top" src={movie.poster_path} />
+      <Card.Img variant="top" src={series.poster_path} />
       <Card.Body>
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>Popularity : {movie.popularity}</Card.Text>
+        <Card.Title>{series.title}</Card.Title>
+        <Card.Text>Popularity : {series.popularity}</Card.Text>
         <div className="d-flex flex-wrap justify-content-between">
           <div className="d-flex flex-column justify-content-between">
             <Button
               className="mt-2"
               variant="primary"
-              href={`/movies/${movie._id}`}
-              onClick={(e) => seeMovieDetailHandle(e, movie._id)}
+              href={`/tv-series/${series._id}`}
+              onClick={(e) => seeTvSeriesDetailHandle(e, series._id)}
             >
               See Detail
             </Button>
@@ -43,7 +43,7 @@ function TvSeriesFavoriteListItem(props) {
             <Button
               className="mt-2"
               variant="danger"
-              onClick={removeMovieFromFavoriteMovies}
+              onClick={removeTvSeriesFromFavorite}
             >
               Remove From Favorites
             </Button>

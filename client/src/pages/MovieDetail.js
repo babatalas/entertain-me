@@ -8,6 +8,7 @@ import {
 } from "../graphql/queries";
 import { Container, Card, Figure, Badge, Button } from "react-bootstrap";
 import MovieSubMenu from "../components/MovieSubMenu";
+import TheLoading from "../components/TheLoading";
 
 function MovieDetail() {
   const { movieId } = useParams();
@@ -40,7 +41,7 @@ function MovieDetail() {
     });
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <TheLoading />;
   if (error) return <p>Error...</p>;
 
   return (

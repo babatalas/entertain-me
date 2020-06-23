@@ -8,11 +8,13 @@ import {
   MovieDetail,
   MovieFavorites,
   TvSeries,
+  TvSeriesEdit,
   TvSeriesCreate,
   TvSeriesDetail,
-  TvSeriesEdit,
+  TvSeriesFavorites,
 } from "./pages";
 import TheNavbar from "./components/TheNavbar";
+import './App.css';
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route path="/movies/:movieId" component={MovieDetail} />
         <Route path="/tv-series" exact component={TvSeries} />
         <Route path="/tv-series/create" component={TvSeriesCreate} />
+        <Route path="/tv-series/favorites" component={TvSeriesFavorites} />
         <Route path="/tv-series/edit/:tvSeriesId" component={TvSeriesEdit} />
         <Route path="/tv-series/:tvSeriesId" component={TvSeriesDetail} />
       </Switch>
