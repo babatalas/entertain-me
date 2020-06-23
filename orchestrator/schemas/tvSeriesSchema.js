@@ -103,6 +103,7 @@ const resolvers = {
         if (response.n) {
           redis.del("tvSeries:" + _id);
           redis.del("tvSeries");
+          response._id = _id;
         }
         return response;
       } catch (error) {
