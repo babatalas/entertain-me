@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.15.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cors": "^2.8.5",
     "ioredis": "^4.17.3",
     "dotenv": "^8.2.0"
